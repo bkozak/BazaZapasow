@@ -1,0 +1,80 @@
+﻿@model Baza_zapasow.Models.Uzytkownik
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Uzytkownik</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Imie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Imie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nazwisko)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nazwisko)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adres)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adres)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kod_pocztowy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kod_pocztowy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Miasto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Miasto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dowod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dowod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nr_telefonu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nr_telefonu)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Zapasy_bazaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Rodzaje_stacji">
+          <Key>
+            <PropertyRef Name="Rodzaj_Id" />
+          </Key>
+          <Property Name="Rodzaj_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rodzaj" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stacje">
+          <Key>
+            <PropertyRef Name="Nr_stacji" />
+          </Key>
+          <Property Name="Nr_stacji" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Rodzaj_Id" Type="int" Nullable="false" />
+          <Property Name="Uwagi" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Telewizory">
+          <Key>
+            <PropertyRef Name="TelewizorID" />
+          </Key>
+          <Property Name="TelewizorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nazwa" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Rozmiar" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uzytkownik">
+          <Key>
+            <PropertyRef Name="Uzytkownik_Id" />
+          </Key>
+          <Property Name="Uzytkownik_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Imie" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nazwisko" Type="nvarchar" MaxLength="50" />
+          <Property Name="Adres" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Kod_pocztowy" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Miasto" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Dowod" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nr_telefonu" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wypozyczenie">
+          <Key>
+            <PropertyRef Name="Wypozyczenie_Id" />
+          </Key>
+          <Property Name="Wypozyczenie_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Zgloszenie" Type="int" />
+          <Property Name="Data_wypozyczenia" Type="date" Nullable="false" />
+          <Property Name="Data_zwrotu" Type="date" Nullable="false" />
+          <Property Name="Uzytkownik_Id" Type="int" Nullable="false" />
+          <Property Name="Nr_stacji" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Zwrot" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WypozyczenieTV">
+          <Key>
+            <PropertyRef Name="WypozyczenieTVID" />
+          </Key>
+          <Property Name="WypozyczenieTVID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DataWypozyczenia" Type="datetime" />
+          <Property Name="DataZwrotu" Type="datetime" />
+          <Property Name="TelewizorID" Type="int" />
+          <Property Name="Dodatkowo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Opis" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <Association Name="FK_Stacje_Rodzaje_stacji">
+          <End Role="Rodzaje_stacji" Type="Self.Rodzaje_stacji" Multiplicity="1" />
+          <End Role="Stacje" Type="Self.Stacje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rodzaje_stacji">
+              <PropertyRef Name="Rodzaj_Id" />
+            </Principal>
+            <Dependent Role="Stacje">
+              <PropertyRef Name="Rodzaj_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wypozyczenie_Stacje">
+          <End Role="Stacje" Type="Self.Stacje" Multiplicity="1" />
+          <End Role="Wypozyczenie" Type="Self.Wypozyczenie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stacje">
+              <PropertyRef Name="Nr_stacji" />
+            </Principal>
+            <Dependent Role="Wypozyczenie">
+              <PropertyRef Name="Nr_stacji" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wypozyczenie_Telewizor">
+          <End Role="Telewizory" Type="Self.Telewizory" Multiplicity="0..1" />
+          <End Role="WypozyczenieTV" Type="Self.WypozyczenieTV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Telewizory">
+              <PropertyRef Name="TelewizorID" />
+            </Principal>
+            <Dependent Role="WypozyczenieTV">
+              <PropertyRef Name="TelewizorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wypozyczenie_Uzytkownik">
+          <End Role="Uzytkownik" Type="Self.Uzytkownik" Multiplicity="1" />
+          <End Role="Wypozyczenie" Type="Self.Wypozyczenie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uzytkownik">
+              <PropertyRef Name="Uzytkownik_Id" />
+            </Principal>
+            <Dependent Role="Wypozyczenie">
+              <PropertyRef Name="Uzytkownik_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Zapasy_bazaModelStoreContainer">
+          <EntitySet Name="Rodzaje_stacji" EntityType="Self.Rodzaje_stacji" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stacje" EntityType="Self.Stacje" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Telewizory" EntityType="Self.Telewizory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uzytkownik" EntityType="Self.Uzytkownik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wypozyczenie" EntityType="Self.Wypozyczenie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WypozyczenieTV" EntityType="Self.WypozyczenieTV" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Stacje_Rodzaje_stacji" Association="Self.FK_Stacje_Rodzaje_stacji">
+            <End Role="Rodzaje_stacji" EntitySet="Rodzaje_stacji" />
+            <End Role="Stacje" EntitySet="Stacje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wypozyczenie_Stacje" Association="Self.FK_Wypozyczenie_Stacje">
+            <End Role="Stacje" EntitySet="Stacje" />
+            <End Role="Wypozyczenie" EntitySet="Wypozyczenie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wypozyczenie_Telewizor" Association="Self.FK_Wypozyczenie_Telewizor">
+            <End Role="Telewizory" EntitySet="Telewizory" />
+            <End Role="WypozyczenieTV" EntitySet="WypozyczenieTV" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wypozyczenie_Uzytkownik" Association="Self.FK_Wypozyczenie_Uzytkownik">
+            <End Role="Uzytkownik" EntitySet="Uzytkownik" />
+            <End Role="Wypozyczenie" EntitySet="Wypozyczenie" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Zapasy_bazaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Rodzaje_stacji">
+          <Key>
+            <PropertyRef Name="Rodzaj_Id" />
+          </Key>
+          <Property Name="Rodzaj_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rodzaj" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Stacje" Relationship="Self.FK_Stacje_Rodzaje_stacji" FromRole="Rodzaje_stacji" ToRole="Stacje" />
+        </EntityType>
+        <EntityType Name="Stacje">
+          <Key>
+            <PropertyRef Name="Nr_stacji" />
+          </Key>
+          <Property Name="Nr_stacji" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Rodzaj_Id" Type="Int32" Nullable="false" />
+          <Property Name="Uwagi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Rodzaje_stacji" Relationship="Self.FK_Stacje_Rodzaje_stacji" FromRole="Stacje" ToRole="Rodzaje_stacji" />
+          <NavigationProperty Name="Wypozyczenie" Relationship="Self.FK_Wypozyczenie_Stacje" FromRole="Stacje" ToRole="Wypozyczenie" />
+        </EntityType>
+        <EntityType Name="Uzytkownik">
+          <Key>
+            <PropertyRef Name="Uzytkownik_Id" />
+          </Key>
+          <Property Name="Uzytkownik_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Imie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nazwisko" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adres" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Kod_pocztowy" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Miasto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dowod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nr_telefonu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Wypozyczenie" Relationship="Zapasy_bazaModel.FK_Wypozyczenie_Uzytkownik" FromRole="Uzytkownik" ToRole="Wypozyczenie" />
+        </EntityType>
+        <EntityType Name="Wypozyczenie">
+          <Key>
+            <PropertyRef Name="Wypozyczenie_Id" />
+          </Key>
+          <Property Name="Wypozyczenie_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Zgloszenie" Type="Int32" />
+          <Property Name="Data_wypozyczenia" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Data_zwrotu" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Uzytkownik_Id" Type="Int32" Nullable="false" />
+          <Property Name="Nr_stacji" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Stacje" Relationship="Self.FK_Wypozyczenie_Stacje" FromRole="Wypozyczenie" ToRole="Stacje" />
+          <NavigationProperty Name="Uzytkownik" Relationship="Zapasy_bazaModel.FK_Wypozyczenie_Uzytkownik" FromRole="Wypozyczenie" ToRole="Uzytkownik" />
+          <Property Name="Zwrot" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Stacje_Rodzaje_stacji">
+          <End Role="Rodzaje_stacji" Type="Self.Rodzaje_stacji" Multiplicity="1" />
+          <End Role="Stacje" Type="Self.Stacje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rodzaje_stacji">
+              <PropertyRef Name="Rodzaj_Id" />
+            </Principal>
+            <Dependent Role="Stacje">
+              <PropertyRef Name="Rodzaj_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wypozyczenie_Stacje">
+          <End Role="Stacje" Type="Self.Stacje" Multiplicity="1" />
+          <End Role="Wypozyczenie" Type="Self.Wypozyczenie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stacje">
+              <PropertyRef Name="Nr_stacji" />
+            </Principal>
+            <Dependent Role="Wypozyczenie">
+              <PropertyRef Name="Nr_stacji" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Zapasy_bazaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Rodzaje_stacji" EntityType="Self.Rodzaje_stacji" />
+          <EntitySet Name="Stacje" EntityType="Self.Stacje" />
+          <EntitySet Name="Uzytkownik" EntityType="Self.Uzytkownik" />
+          <EntitySet Name="Wypozyczenie" EntityType="Self.Wypozyczenie" />
+          <AssociationSet Name="FK_Stacje_Rodzaje_stacji" Association="Self.FK_Stacje_Rodzaje_stacji">
+            <End Role="Rodzaje_stacji" EntitySet="Rodzaje_stacji" />
+            <End Role="Stacje" EntitySet="Stacje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wypozyczenie_Stacje" Association="Self.FK_Wypozyczenie_Stacje">
+            <End Role="Stacje" EntitySet="Stacje" />
+            <End Role="Wypozyczenie" EntitySet="Wypozyczenie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wypozyczenie_Uzytkownik" Association="Zapasy_bazaModel.FK_Wypozyczenie_Uzytkownik">
+            <End Role="Uzytkownik" EntitySet="Uzytkownik" />
+            <End Role="Wypozyczenie" EntitySet="Wypozyczenie" />
+          </AssociationSet>
+          <EntitySet Name="Telewizory" EntityType="Zapasy_bazaModel.Telewizory" />
+          <EntitySet Name="WypozyczenieTV" EntityType="Zapasy_bazaModel.WypozyczenieTV" />
+          <AssociationSet Name="FK_Wypozyczenie_Telewizor" Association="Zapasy_bazaModel.FK_Wypozyczenie_Telewizor">
+            <End Role="Telewizory" EntitySet="Telewizory" />
+            <End Role="WypozyczenieTV" EntitySet="WypozyczenieTV" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Wypozyczenie_Uzytkownik">
+          <End Type="Zapasy_bazaModel.Uzytkownik" Role="Uzytkownik" Multiplicity="1" />
+          <End Type="Zapasy_bazaModel.Wypozyczenie" Role="Wypozyczenie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uzytkownik">
+              <PropertyRef Name="Uzytkownik_Id" />
+            </Principal>
+            <Dependent Role="Wypozyczenie">
+              <PropertyRef Name="Uzytkownik_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Telewizory">
+          <Key>
+            <PropertyRef Name="TelewizorID" />
+          </Key>
+          <Property Name="TelewizorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nazwa" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Rozmiar" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="WypozyczenieTV" Relationship="Zapasy_bazaModel.FK_Wypozyczenie_Telewizor" FromRole="Telewizory" ToRole="WypozyczenieTV" />
+        </EntityType>
+        <EntityType Name="WypozyczenieTV">
+          <Key>
+            <PropertyRef Name="WypozyczenieTVID" />
+          </Key>
+          <Property Name="WypozyczenieTVID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DataWypozyczenia" Type="DateTime" Precision="3" />
+          <Property Name="DataZwrotu" Type="DateTime" Precision="3" />
+          <Property Name="TelewizorID" Type="Int32" />
+          <Property Name="Dodatkowo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Opis" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Telewizory" Relationship="Zapasy_bazaModel.FK_Wypozyczenie_Telewizor" FromRole="WypozyczenieTV" ToRole="Telewizory" />
+        </EntityType>
+        <Association Name="FK_Wypozyczenie_Telewizor">
+          <End Type="Zapasy_bazaModel.Telewizory" Role="Telewizory" Multiplicity="0..1" />
+          <End Type="Zapasy_bazaModel.WypozyczenieTV" Role="WypozyczenieTV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Telewizory">
+              <PropertyRef Name="TelewizorID" />
+            </Principal>
+            <Dependent Role="WypozyczenieTV">
+              <PropertyRef Name="TelewizorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Zapasy_bazaModelStoreContainer" CdmEntityContainer="Zapasy_bazaEntities">
+          <EntitySetMapping Name="Rodzaje_stacji">
+            <EntityTypeMapping TypeName="Zapasy_bazaModel.Rodzaje_stacji">
+              <MappingFragment StoreEntitySet="Rodzaje_stacji">
+                <ScalarProperty Name="Rodzaj_Id" ColumnName="Rodzaj_Id" />
+                <ScalarProperty Name="Rodzaj" ColumnName="Rodzaj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stacje">
+            <EntityTypeMapping TypeName="Zapasy_bazaModel.Stacje">
+              <MappingFragment StoreEntitySet="Stacje">
+                <ScalarProperty Name="Nr_stacji" ColumnName="Nr_stacji" />
+                <ScalarProperty Name="Rodzaj_Id" ColumnName="Rodzaj_Id" />
+                <ScalarProperty Name="Uwagi" ColumnName="Uwagi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uzytkownik">
+            <EntityTypeMapping TypeName="Zapasy_bazaModel.Uzytkownik">
+              <MappingFragment StoreEntitySet="Uzytkownik">
+                <ScalarProperty Name="Uzytkownik_Id" ColumnName="Uzytkownik_Id" />
+                <ScalarProperty Name="Imie" ColumnName="Imie" />
+                <ScalarProperty Name="Nazwisko" ColumnName="Nazwisko" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Kod_pocztowy" ColumnName="Kod_pocztowy" />
+                <ScalarProperty Name="Miasto" ColumnName="Miasto" />
+                <ScalarProperty Name="Dowod" ColumnName="Dowod" />
+                <ScalarProperty Name="Nr_telefonu" ColumnName="Nr_telefonu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wypozyczenie">
+            <EntityTypeMapping TypeName="Zapasy_bazaModel.Wypozyczenie">
+              <MappingFragment StoreEntitySet="Wypozyczenie">
+                <ScalarProperty Name="Zwrot" ColumnName="Zwrot" />
+                <ScalarProperty Name="Wypozyczenie_Id" ColumnName="Wypozyczenie_Id" />
+                <ScalarProperty Name="Zgloszenie" ColumnName="Zgloszenie" />
+                <ScalarProperty Name="Data_wypozyczenia" ColumnName="Data_wypozyczenia" />
+                <ScalarProperty Name="Data_zwrotu" ColumnName="Data_zwrotu" />
+                <ScalarProperty Name="Uzytkownik_Id" ColumnName="Uzytkownik_Id" />
+                <ScalarProperty Name="Nr_stacji" ColumnName="Nr_stacji" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Telewizory">
+            <EntityTypeMapping TypeName="Zapasy_bazaModel.Telewizory">
+              <MappingFragment StoreEntitySet="Telewizory">
+                <ScalarProperty Name="Rozmiar" ColumnName="Rozmiar" />
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+                <ScalarProperty Name="TelewizorID" ColumnName="TelewizorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WypozyczenieTV">
+            <EntityTypeMapping TypeName="Zapasy_bazaModel.WypozyczenieTV">
+              <MappingFragment StoreEntitySet="WypozyczenieTV">
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Dodatkowo" ColumnName="Dodatkowo" />
+                <ScalarProperty Name="TelewizorID" ColumnName="TelewizorID" />
+                <ScalarProperty Name="DataZwrotu" ColumnName="DataZwrotu" />
+                <ScalarProperty Name="DataWypozyczenia" ColumnName="DataWypozyczenia" />
+                <ScalarProperty Name="WypozyczenieTVID" ColumnName="WypozyczenieTVID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

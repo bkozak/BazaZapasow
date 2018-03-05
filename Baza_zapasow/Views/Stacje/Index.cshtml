@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Baza_zapasow.Models.Stacje>
+
+@{
+    ViewBag.Title = "Dostępne zapasy";
+}
+
+<h2>Dostępne zapasy</h2>
+
+<p>
+    @Html.ActionLink("Dodaj nowy zapas", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Numer stacji
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Uwagi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rodzaje_stacji.Rodzaj)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <th>
+            @Html.DisplayFor(modelItem => item.Nr_stacji)
+        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.Uwagi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rodzaje_stacji.Rodzaj)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.Nr_stacji }) |
+            @*@Html.ActionLink("Details", "Details", new { id=item.Nr_stacji }) |*@
+            @Html.ActionLink("Usuń", "Delete", new { id=item.Nr_stacji })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,58 @@
+﻿@model Baza_zapasow.Models.Wypozyczenie
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Wypozyczenie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Zgloszenie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zgloszenie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data_wypozyczenia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data_wypozyczenia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data_zwrotu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data_zwrotu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stacje.Uwagi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stacje.Uwagi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Uzytkownik.Imie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Uzytkownik.Imie)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Wypozyczenie_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

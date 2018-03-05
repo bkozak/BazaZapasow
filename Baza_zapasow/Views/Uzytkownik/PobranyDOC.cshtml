@@ -1,0 +1,11 @@
+﻿@model List<string>
+@{
+    ViewBag.Title = "PobranyDOC";
+}
+
+<h2>PobranyDOC</h2>
+
+@foreach (var item in Model)
+{
+    <span>@item.ToString()</span><br />
+}

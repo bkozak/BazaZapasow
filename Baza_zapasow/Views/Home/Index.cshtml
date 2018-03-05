@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Baza_zapasow.Models.Wypozyczenie>
+@{
+    ViewBag.Title = "Home Page";
+    
+}
+
+<div class="jumbotron text-center">
+    <h1>Aktualnie wypożyczone</h1>
+    <br />
+    <table class="table table-striped table-bordered text-center">
+        <tr>
+            <th>
+                <p class="text-center">Numer stacji</p>
+            </th>
+            <th>
+                <p class="text-center">Zgłoszenie</p>
+            </th>
+            <th>
+                <p class="text-center">Użytkownik</p>
+            </th>
+            <th>
+                <p class="text-center">Data wypożyczenia</p>
+            </th>
+            <th>
+                <p class="text-center">Data zwrotu</p>
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            if (item.Zwrot != true)
+            {
+                
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Stacje.Nr_stacji)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Zgloszenie)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Uzytkownik.Imie)  @Html.DisplayFor(modelItem => item.Uzytkownik.Nazwisko)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Data_wypozyczenia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Data_zwrotu)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Zwrot", "Zwrota", new { id = item.Wypozyczenie_Id })
+
+                    </td>
+                  @* <td>
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.Wypozyczenie_Id }) |
+                            @Html.ActionLink("Szczegóły", "Details", new { id = item.Wypozyczenie_Id }) |
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.Wypozyczenie_Id })
+                    </td>*@
+                </tr>
+            }
+        }
+    </table>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+
+            <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    Stacje po terminie:
+                                </th>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                if ((item.Data_zwrotu <= DateTime.Now)&&(item.Zwrot == false))
+                                {
+
+
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Stacje.Nr_stacji)
+                                    </td>
+                                </tr>
+                                }
+                            }
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+
+            @*<h2>Ostatnio oddany</h2>
+            <p>@ViewBag.Ostatni</p>
+            <p>@ViewBag.Test</p>*@
+        </div>
+
+    </div>

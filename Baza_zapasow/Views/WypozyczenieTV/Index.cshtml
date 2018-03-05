@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Baza_zapasow.Models.WypozyczenieTV>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    @Html.ActionLink("Dodaj telewizor", "Create", "Telewizory")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DataWypozyczenia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataZwrotu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dodatkowo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Opis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telewizory.Nazwa)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataWypozyczenia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataZwrotu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dodatkowo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Opis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telewizory.Nazwa)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.WypozyczenieTVID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.WypozyczenieTVID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.WypozyczenieTVID })
+        </td>
+    </tr>
+}
+
+</table>

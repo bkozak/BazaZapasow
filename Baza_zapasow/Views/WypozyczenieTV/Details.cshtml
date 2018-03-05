@@ -1,0 +1,58 @@
+﻿@model Baza_zapasow.Models.WypozyczenieTV
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WypozyczenieTV</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DataWypozyczenia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataWypozyczenia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataZwrotu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataZwrotu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dodatkowo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dodatkowo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Opis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Opis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telewizory.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telewizory.Nazwa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WypozyczenieTVID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

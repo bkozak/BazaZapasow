@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Baza_zapasow.Models.Wypozyczenie>
+
+@{
+    ViewBag.Title = "Wypożyczenia";
+}
+
+<h2>Wypożyczenia</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            <p>Numer zgłoszenia</p>
+        </th>
+        <th>
+            <p>Data wypożyczenia</p>
+        </th>
+        <th>
+            <p>Data zwrotu</p>
+        </th>
+        <th>
+            <p>Numer stacji</p>
+        </th>
+        <th>
+            <p>Użytkownik</p>
+        </th>
+        <th>
+            <p class="text-center">Zwrot</p>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zgloszenie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Data_wypozyczenia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Data_zwrotu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stacje.Nr_stacji)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Uzytkownik.ImieNazwisko)
+        </td>
+        <td class="text-center">
+            @Html.DisplayFor(modelItem => item.Zwrot)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.Wypozyczenie_Id }) |
+            @*@Html.ActionLink("Details", "Details", new { id=item.Wypozyczenie_Id }) |*@
+            @Html.ActionLink("Usuń", "Delete", new { id=item.Wypozyczenie_Id })
+        </td>
+    </tr>
+}
+
+</table>

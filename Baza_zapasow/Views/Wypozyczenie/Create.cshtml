@@ -1,0 +1,79 @@
+﻿@model Baza_zapasow.Models.Wypozyczenie
+@*@model Baza_zapasow.Models.Uzytkownik*@
+@*@model Baza_zapasow.ViewModels.Baza_zapasowViewModel*@
+@{
+    ViewBag.Title = "Wypożyczenie sprzętu";
+}
+
+<h2>Nowe</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Wypozyczenie</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Zgloszenie, "Numer zgłoszenia", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Zgloszenie, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Zgloszenie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Data_wypozyczenia, "Data wypożyczenia", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Data_wypozyczenia, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                @Html.ValidationMessageFor(model => model.Data_wypozyczenia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Data_zwrotu, "Data zwrotu", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Data_zwrotu, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                @Html.ValidationMessageFor(model => model.Data_zwrotu, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Uzytkownik_Id, "Użytkownik", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownList("Uzytkownik_Id", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Uzytkownik_Id, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.ActionLink("Dodaj nowego", "Create", "Uzytkownik", new { area = "" }, new { @class = "btn btn-danger" })                   
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nr_stacji, "Nr stacji", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Nr_stacji", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Nr_stacji, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @* ------------------------------------------------Uzytkownik------------------------------------------------------------------------------- *@
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Wróć do listy", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $('.datepicker').datepicker({ format: 'dd.mm.yyyy', autoclose: true, todayHighlight: true, language: 'pl-PL' });
+    </script>
+}

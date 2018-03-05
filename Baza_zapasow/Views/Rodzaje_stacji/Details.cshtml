@@ -1,0 +1,26 @@
+﻿@model Baza_zapasow.Models.Rodzaje_stacji
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Rodzaje_stacji</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Rodzaj)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rodzaj)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Rodzaj_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

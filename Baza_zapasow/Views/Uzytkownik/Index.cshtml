@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Baza_zapasow.Models.Uzytkownik>
+
+@{
+    ViewBag.Title = "Użytkownicy";
+}
+
+<h2>Użytkownicy</h2>
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+Drukowanie wykonane
+        </div>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Dodaj nowego", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Imie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nazwisko)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adres)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kod_pocztowy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Miasto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dowod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nr_telefonu)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Imie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nazwisko)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adres)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kod_pocztowy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Miasto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dowod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nr_telefonu)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.Uzytkownik_Id }) |
+            @Html.ActionLink("Szczegóły", "Details", new { id=item.Uzytkownik_Id }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.Uzytkownik_Id }) |
+            @Html.ActionLink("Drukuj", "DrukujUmowe", new { id = item.Uzytkownik_Id });
+        </td>
+    </tr>
+}
+
+</table>
