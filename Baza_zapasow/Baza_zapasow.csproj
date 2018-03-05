@@ -324,7 +324,6 @@
     <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker.min.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
-    <Content Include="PDF\WzorTokeny.pdf" />
     <None Include="Properties\PublishProfiles\DoFolderu.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
@@ -499,6 +498,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="PDF\" />
     <Folder Include="Views\TelewizoryTest\" />
   </ItemGroup>
   <PropertyGroup>
